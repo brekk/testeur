@@ -4,16 +4,21 @@
   "description": "mocha reporter which generates raconteur-style output",
   "main": "testeur.js",
   "scripts": {
-    "build": "npm run clean && npm run create && npm run convert",
+    "build": "npm run clean && npm run create && npm run convert && npm run generate-tests",
     "clean": "npm run clean-build && npm run clean-public",
     "clean-build": "rm -rf ./lib",
     "clean-public": "rm -rf ./public",
     "create": "npm run create-lib",
     "create-lib": "(mkdir ./lib || true)",
-    "convert": "npm run convert-main && npm run convert-test",
+    "convert": "npm run convert-main",
     "convert-main": "./node_modules/.bin/coffee --compile --output ./lib/ src/coffee/main",
     "convert-test": "./node_modules/.bin/coffee --compile --output ./test/ src/coffee/test",
+    "generate-tests": "npm run generate-tests-harness && npm run generate-tests-fixture && npm run generate-tests-suite",
+    "generate-tests-harness": "./node_modules/.bin/coffee --compile --output ./lib/ src/coffee/test/harnesses",
+    "generate-tests-fixture": "./node_modules/.bin/coffee --compile --output ./lib/ src/coffee/test/fixtures",
+    "generate-tests-suite": "./node_modules/.bin/coffee --compile --output ./lib/ src/coffee/test/suites",
     "test": "npm run build && ./node_modules/.bin/mocha --reporter spec",
+    "runner": "npm run build && DEBUG=testeur ./runner.js --files=./lib/simple.js",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -33,12 +38,16 @@
   },
   "homepage": "https://github.com/brekk/testeur#readme",
   "dependencies": {
+    "bluebird": "^2.9.34",
     "chalk": "^1.1.0",
+    "debug": "^2.2.0",
     "graceful-fs": "^4.1.2",
+    "json2yaml": "^1.0.3",
     "lodash": "^3.10.0",
     "stacktrace-js": "^0.6.4"
   },
   "devDependencies": {
+    "minimist": "^1.1.1",
     "mocha": "latest",
     "must": "^0.12.0"
   }
