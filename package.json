@@ -40,7 +40,10 @@
   "dependencies": {
     "bluebird": "^2.9.34",
     "chalk": "^1.1.0",
+    "cod": "^0.4.3",
+    "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
+    "delve": "^0.3.2",
     "graceful-fs": "^4.1.2",
     "json2yaml": "^1.0.3",
     "lodash": "^3.10.0",
